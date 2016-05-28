@@ -1,0 +1,52 @@
+
+{% extends 'login.html' %}
+{% load staticfiles %}
+
+{% block principal %}
+	<div class="registro">
+
+		<div class='lateral-izq'>
+			<form id='form-registro' method='POST' action=''>{% csrf_token %}
+				<div class='row'>
+					{{ form.nombre }}
+				</div>
+				<div class='row'>
+					{{ form.apellido }}
+				</div>
+				<div class='row'>
+					{{ form.email }}
+				</div>
+				<div class='row'>
+					{{ form.password }}
+				</div>
+				<div class='row'>
+					<label>Fecha de nacimiento</label>
+				</div>
+				<div class='row'>
+					{{form.dia_nacimiento}}
+					{{ form.mes_nacimiento }}
+					{{ form.anio_nacimiento }}
+				</div>
+				<div class='row'>
+					<button type='submit'>Aceptar</button>
+				</div>
+			</form>
+		</div>
+		<div class='separador'></div>
+		<div class='lateral-der'>
+			<div class="row">
+				<center><h2>Cre&aacute; tu cuenta</h2></center>
+			</div>
+			<div>
+				<center><p>Date de alta como usuario <br>para una mejor experiencia.</p></center>
+			</div>
+			<div>
+
+			</div>
+		</div>
+
+
+
+	</div>
+
+{% endblock principal%}

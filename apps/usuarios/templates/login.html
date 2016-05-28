@@ -1,0 +1,192 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='{% static 'css/strength.css' %}' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/strength.js' %}"></script>
+	<style type="text/css">
+		input[type='text'],input[type='password'],input[type='email']{
+			width:250px;
+			height: 40px;
+			text-align: center;
+
+		}
+		input[type='text']{
+			border-radius: 3px;/* bordes esquinas superiores */
+			border:1px solid #00A0D1;
+
+		}
+		input[type='password']{
+			border-radius: 3px;/* bordes esquinas inferiores */
+			border:1px solid #00A0D1;
+		}
+		input[type='email']{
+			border-radius: 3px;/* bordes esquinas inferiores */
+			border:1px solid #00A0D1;
+		}
+		.login{
+			border: 1px solid #78AFAA;
+			position:absolute;
+			top:27%;
+			left:15%;
+			padding: 1em 5em 5em 3em;
+			border-radius: 10px;
+			background: #F1F1F1; /* For browsers that do not support gradients */
+			box-shadow: 5px 5px 40px #F1F;
+			width: 260px;
+			height: 260px;
+		    z-index: -1;
+		}
+		.registro{
+			border: 1px solid #78AFAA;
+			position:absolute;
+			top:15%;
+			left:5%;
+			padding: 1em 5em 5em 5em;
+			border-radius: 10px;
+			background: #F1F1F1; /* For browsers that do not support gradients */
+			box-shadow: 5px 5px 40px #F1F;
+			width: 520px;
+			height: 400px;
+		    z-index: -1;
+
+		}
+		body{
+			background-image: url( '{% static "img/background1.jpg" %}');
+			background-size: 100%;
+		}
+		.login-head{
+			font-family: 'Lobster';
+			text-align: center;
+			color:#547C57;
+		}
+		.login-footer{
+			margin-top: 5px;
+			text-align: center;
+			font-family: 'Pacifico'
+		}
+		button[type='submit']{
+			margin-top:5px;
+			border-radius: 5px;
+			width: 250px;
+			height: 35px;
+			background-color: #547C57;
+			border:none;
+			box-shadow: 3px 3px 5px #ccc;
+			color: #F1F1F1;
+		}
+		button[type='submit']:hover{
+			margin-top:5px;
+			border-radius: 5px;
+			width: 250px;
+			height: 35px;
+			background-color: #CAD5B7;
+			border:none;
+			box-shadow: 3px 3px 5px #ccc;
+			color: #F1F1F1;
+		}
+		a{
+			color:#547C57;
+			text-decoration: none;
+		}
+		#id_new_password1,#id_new_password2{
+			border-radius: 5px;
+			margin: 15px;
+			border:1px solid #00A0D1;
+		}
+		.row{
+			margin:25px;
+		}
+		.lateral-der{
+			position: absolute;
+			left: 40px;
+			top: 0px;
+			margin-top: 20px;
+		}
+
+		.lateral-izq{
+			position: absolute;
+			left: 350px;
+			top: 0px;
+			margin-top: 20px;
+		}
+		.separador{
+		  position: absolute;
+		  left: 330px;
+		  top: 30px;
+		  width: 1px;
+		  background-color: silver;
+		  height: 400px;
+		  float: left;
+		 }
+		 #form-registro input[type='text'],#form-registro input[type='email'],#form-registro input[type='password']{
+		 	border-radius: 3px;/* bordes esquinas superiores */
+			border:1px solid #00A0D1;
+			height: 40px;
+		 }
+		 #form-registro select{
+		 	height: 40px;
+		 	border-radius: 3px;
+		 	border:1px solid #00A0D1;
+		 	background-color: white;
+
+		 }
+		 .required{outline: 1px solid red;}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function ($) {
+
+		     $('#id_new_password1').pwstrength();
+			 $('#id_new_password2').pwstrength();
+		});
+	</script>
+</head>
+<body>{% block principal %}
+	<div id='login' class='login'>
+		<div class='login-head'>
+			{% block login-head %}
+			<h3> Bienvenido Usuario</h3>
+			{% endblock login-head %}
+		</div>
+		<div class='login-body'>
+			{% block login-body %}
+			{% if form.errors %}
+				<p>Los datos ingresados son incorrectos.</p>
+			{% endif %}
+			<form method='POST' action={% url 'login' %}>{% csrf_token %}
+				<div >
+					<div class="row">
+						{{ form.username }}
+						<script type="text/javascript">
+							document.getElementById("id_username").placeholder = "Usuario";
+
+						</script>
+					</div>
+					<div class="row">
+						{{ form.password }}
+						<script type="text/javascript">
+							document.getElementById("id_password").placeholder = "Contraseña";
+
+						</script>
+					</div>
+				</div>
+				<div class="row">
+					<button type='submit'>Ingresar</button>
+				</div>
+
+			</form>
+			{% endblock login-body %}
+		</div>
+		<div class='login-footer'>
+			{% block login-footer %}
+			<a href="{% url 'password_reset' %}">¿Olvid&oacute; su contrase&ntilde;a?</a><br><a href="{% url 'registro' %}">Registrarse</a>
+			{% endblock login-footer %}
+		</div>
+	</div>
+	{% endblock principal %}
+</body>
+</html>

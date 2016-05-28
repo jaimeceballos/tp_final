@@ -1,0 +1,14 @@
+{% extends 'login.html' %}
+{%  block login-head %} <h3>FELICITACIONES!!</h3> {% endblock %}
+{% block login-body %}
+<p>Tu usuario ha sido activado. Por favor Hace click en Ingresar para comenzar a utilizar el sitio.</p>
+{% endblock %}
+{% block login-footer %}
+	<a href="{% url 'login' %}" style="padding:10px 40px 10px 40px;
+			border-radius: 5px;
+			background-color: #547C57;
+			border:none;
+			box-shadow: 3px 3px 5px #ccc;
+			font-family:arial;
+			color: #F1F1F1;">Ingresar</a>
+{% endblock %}

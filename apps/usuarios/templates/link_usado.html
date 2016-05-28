@@ -1,0 +1,15 @@
+{% extends 'login.html' %}
+{% block login-head %} {% endblock %}
+{% block login-body %}
+<p>Este link ya fue utilizado y tu cuenta se encuentra activada.<br>
+	Por favor hace click en Ingresar para ingresar al sitio.</p>
+{% endblock %}
+{% block login-footer %}
+	<a href="{% url 'login' %}" style="padding:10px 40px 10px 40px;
+			border-radius: 5px;
+			background-color: #547C57;
+			border:none;
+			box-shadow: 3px 3px 5px #ccc;
+			font-family:arial;
+			color: #F1F1F1;">Ingresar</a>
+{% endblock %}

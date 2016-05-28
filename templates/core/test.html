@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script src="{% static 'js/maps.js' %}"></script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/map.css' %}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/funciones.js' %}"></script>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuneURtJfQGvMv3cG5TQMomWarGPIQ14c&signed_in=true&callback=initialize"
+        async defer>
+    </script>
+
+    <div id="map_canvas">
+
+
+    </div>
+    <h1 id=encabezado>Nuevo Contacto de emergencia</h1>
+    {% block formulario %}
+      {% include 'core/nuevo_contacto.html'%}
+    {% endblock formulario %}
+  </body>
+</html>

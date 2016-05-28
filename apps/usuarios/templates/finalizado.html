@@ -1,0 +1,16 @@
+{% extends "login.html" %}
+
+{% block login-head %}<h3>Hemos finalizado!!</h3>{% endblock %}
+
+{% block login-body %}
+<p style='font-family:Pacifico;font-size:large'>Tu contrase&ntilde;a ha sido restablecida con &eacute;xito.<br>Por favor vuelve a ingresar al sitio.</p>
+{% endblock %}
+{% block login-footer %}
+	<a href="{% url 'login' %}" style="padding:10px 40px 10px 40px;
+			border-radius: 5px;
+			background-color: #547C57;
+			border:none;
+			box-shadow: 3px 3px 5px #ccc;
+			font-family:arial;
+			color: #F1F1F1;">Aceptar</a>
+{% endblock %}

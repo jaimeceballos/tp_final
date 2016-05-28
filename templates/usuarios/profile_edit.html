@@ -1,0 +1,72 @@
+{% extends 'public/index.html'%}
+{% block titulo %}.
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="titulo-content"> Perfil de Usuario </h1>
+      <hr>
+    </div>
+
+  </div>
+
+{% endblock titulo %}
+{% block section %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="row form-group form-group-sm">
+      <div class="col-md-3">
+        <label for="">Nombre</label>
+      </div>
+      <div class="col-md-9">
+        {{userForm.first_name}}
+      </div>
+    </div>
+    <div class="row form-group form-group-sm">
+      <div class="col-md-3">
+        <label for="">Apellido</label>
+      </div>
+      <div class="col-md-9">
+        {{userForm.last_name}}
+      </div>
+    </div>
+    <div class="row form-group form-group-sm">
+      <div class="col-md-3">
+        <label for="">Fecha nacimiento</label>
+      </div>
+      <div class="col-md-3">
+        {{profileForm.dia_nac}}
+      </div>
+      <div class="col-md-3">
+        {{profileForm.mes_nac}}
+      </div>
+      <div class="col-md-3">
+        {{profileForm.anio_nac}}
+      </div>
+    </div>
+    <div class="row form-group form-group-sm">
+      <div class="col-md-3">
+        <label for="">Grupo Sanguineo</label>
+      </div>
+      <div class="col-md-9">
+        {{profileForm.tipo_sangre}}
+      </div>
+    </div>
+    <div class="row form-group form-group-sm">
+      <div class="col-md-12">
+        <label for="">Otros datos Medicos de Interes</label>
+      </div>
+    </div>
+    <div class="row form-group form-group-sm">
+      <div class="col-md-12">
+        {{profileForm.datos_medicos_interes}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    {{profileForm.avatar}}
+    <label class="btn btn-default btn-file">
+    Browse <input type="file" style="display: none;">
+</label>
+  </div>
+</div>
+
+{% endblock section %}

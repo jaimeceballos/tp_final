@@ -1,0 +1,43 @@
+{% extends 'login.html' %}
+{% block principal %}
+<div class='registro'>
+	<form id='form-registro' method='POST' action="{% url 'editar_perfil' %}" enctype="multipart/form-data"> {% csrf_token %}
+	<div class='lateral-der'>
+		<div class='row'>
+			<h3>Completa tu perfil</h3>
+		</div>
+		<div class='row'>
+
+			{% if profileForm.avatar %}
+				<img src="../../media/{{ profile.avatar }}" width='200px' height='200px' style='border-radius:100px;'>
+			{% else %}			
+				{{ profileForm.avatar }}
+			{% endif %}
+		</div>
+	</div>
+	<div class='separador'></div>	
+	<div class='lateral-izq'>
+		<div class='row'>
+			<label>Nombre</label>
+		{{userForm.first_name}}
+		</div>
+		<div class='row'> 
+			<label>Apellido</label>
+			{{userForm.last_name}}
+		</div>
+		<div class='row'>
+			<label>Fecha de nacimiento</label><br>
+			{{profileForm.dia_nac}}{{profileForm.mes_nac}}{{profileForm.anio_nac}}
+		</div>
+		<div class='row'>
+			<label>Correo electr&oacute;nico</label>
+			{{userForm.email}}
+		</div>
+		<div class='row'>
+			<button type='submit'>Aceptar</button>
+		</div>
+	</div>
+	</form>
+
+</div>
+{% endblock %}

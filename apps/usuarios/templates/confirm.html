@@ -1,0 +1,28 @@
+{% extends 'login.html' %}
+{% block login-head %}
+	<h3>Ya casi est&aacute; listo!!</h3>
+{% endblock %}
+{% block login-body %}
+	<form method='POST' action=''>{%  csrf_token %}
+		<div>
+			{{ form.new_password1 }}
+			<div id="pwindicator">
+                    <div class="bar"></div>
+                    <div class="label"></div>
+                </div>
+			<script type="text/javascript">
+				document.getElementById("id_new_password1").placeholder = "Ingrese su nueva contraseña";
+				
+			</script>
+		</div>
+		<div>
+			{{ form.new_password2 }}
+			<script type="text/javascript">
+				document.getElementById("id_new_password2").placeholder = "Vuelva a escribir su nueva contraseña";
+			</script>
+		</div>
+		<button type='submit'>Aceptar</button>
+	</form>
+{% endblock %}
+{% block login-footer %}
+{% endblock %}

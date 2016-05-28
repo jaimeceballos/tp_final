@@ -1,0 +1,133 @@
+{% block formulario %}
+
+<input id="address" name="address" type="hidden" />
+<div class="content col-md-4" id=content>
+  {% if msg %}
+    <div class="alert alert-success alert-dismissable">
+
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        ×
+      </button>
+      <h4>
+        Atencion
+      </h4> <strong>{{msg}}</strong>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+      $("#slider").trigger("click");
+    });
+    </script>
+  {% endif %}
+
+  <div class="row">
+
+    <div class="col-md-12 well">
+      <fieldset>
+        <legend>Cargar nuevo contacto </legend>
+      <form class="" action="{% url 'contacto_save' %}" method="post">{% csrf_token %}
+        <input type="hidden" id="ciudad" value="">
+        <input type="hidden" id="provincia" value="">
+        <input type="hidden" id="pais" value="">
+        {{form.latitud}}
+        {{form.longitud}}
+          <div class="row form-group form-group-sm">
+            <div class="col-md-2">
+                <label for="id_nombre">Nombre: </label>
+            </div>
+            <div class="col-md-10">
+                {{form.nombre}}
+            </div>
+          </div>
+          <div class="row form-group form-group-sm">
+            <div class="col-md-2">
+                <label for="id_direccion">Direccion: </label>
+            </div>
+            <div class="col-md-6">
+                {{form.direccion}}
+            </div>
+            <div class="col-md-4">
+                {{form.numero}}
+            </div>
+          </div>
+          <div class="row form-group form-group-sm">
+            <div class="col-md-4">
+              <a href="javascript:void(0)" class="btn btn-xs btn-primary" id="interseccion_btn"> Agregar calle Intersecci&oacute;n </a>
+            </div>
+            <div class="collapse col-md-8" id="interseccion">
+              {{form.interseccion}}
+            </div>
+          </div>
+          <div class="row form-group form-group-sm">
+            <div class="col-md-2">
+              <label for="id_tipo_contacto">Tipo contacto</label>
+            </div>
+            <div class="col-md-10">
+              {{form.tipo_contacto}}
+            </div>
+          </div>
+          <div class="row form-group form-group-sm">
+            <div class="col-md-2">
+              <label for="id_provincia">Provincia</label>
+            </div>
+            <div class="col-md-10">
+              {{form.provincia}}
+            </div>
+          </div>
+          <div class="row form-group form-group-sm">
+            <div class="col-md-2">
+              <label for="id_ciudad">Ciudad </label>
+            </div>
+            <div class="col-md-10">
+              {{form.localidad}}
+            </div>
+          </div>
+          <div class="row-fluid form-group form-group-sm">
+              <fieldset>
+                <legend>Detalles del contacto</legend>
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="id_telefono_area">Telefono</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{form.telefono_area}}
+                  </div>
+                  <div class="col-md-8">
+                    {{form.telefono_numero}}
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="checkbox">
+                    <label for="id_is_directo">
+                      {{form.is_directo}} Es contacto directo?
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="id_sitio_web">Sitio Web</label>
+                  </div>
+                  <div class="col-md-10">
+                    {{form.sitio_web}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="id_mail">Correo Electr&oacute;nico</label>
+                  </div>
+                  <div class="col-md-10">
+                    {{form.mail }}
+                  </div>
+                </div>
+
+              </fieldset>
+          </div>
+          <button type="submit" name="Guardar" class="btn btn-primary btn-xs pull-right">Guardar</button>
+      </form>
+        </fieldset>
+    </div>
+
+  </div>
+</div>
+<a href="javascript:void(0);" data-toggle="tooltip" data-placement="left"  title="Haga click aqui para Cargar un nuevo lugar." id="slider" ><i class="glyphicon glyphicon-chevron-right" id=slider-icon ></i></a>
+<a href="{% url 'home' %}" data-toggle="tooltip" data-placement="left"  title="Volver al home" id="slider-back" ><i class="glyphicon glyphicon-menu-hamburger" id=slider-back-icon ></i></a>
+{% endblock formulario   %}
