@@ -36,3 +36,16 @@ html {
   text-shadow: 2px 2px #A1C4FD;
   font-size:40px;
 }
+#id_avatar{
+  display: none;
+}
+.boton-agregar-imagen{
+  position: relative;
+  top: -40px;
+  width: 144px;
+  text-align: center;
+  background-color: rgba(204, 204, 204, 0.7);
+}
+.profile-picture{
+  border-radius: 70px;
+}

@@ -1,4 +1,5 @@
 {% extends 'public/index.html'%}
+{% load staticfiles %}
 {% block titulo %}.
   <div class="row">
     <div class="col-md-12">
@@ -10,63 +11,87 @@
 
 {% endblock titulo %}
 {% block section %}
-<div class="row">
-  <div class="col-md-6">
-    <div class="row form-group form-group-sm">
-      <div class="col-md-3">
-        <label for="">Nombre</label>
+<form action="{% url 'editar_perfil' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row form-group form-group-sm">
+        <div class="col-md-3">
+          <label for="">Nombre</label>
+        </div>
+        <div class="col-md-9">
+          {{userForm.first_name}}
+        </div>
       </div>
-      <div class="col-md-9">
-        {{userForm.first_name}}
+      <div class="row form-group form-group-sm">
+        <div class="col-md-3">
+          <label for="">Apellido</label>
+        </div>
+        <div class="col-md-9">
+          {{userForm.last_name}}
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-3">
+          <label for="">Fecha nacimiento</label>
+        </div>
+        <div class="col-md-3">
+          {{profileForm.dia_nac}}
+        </div>
+        <div class="col-md-3">
+          {{profileForm.mes_nac}}
+        </div>
+        <div class="col-md-3">
+          {{profileForm.anio_nac}}
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-3">
+          <label for="">Grupo Sanguineo</label>
+        </div>
+        <div class="col-md-9">
+          {{profileForm.tipo_sangre}}
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-12">
+          <label for="">Otros datos Medicos de Interes</label>
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-12">
+          {{profileForm.datos_medicos_interes}}
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-3">
+          <label for=""> Correo Electronico </label>
+        </div>
+        <div class="col-md-9">
+            {{userForm.email}}
+        </div>
       </div>
     </div>
-    <div class="row form-group form-group-sm">
-      <div class="col-md-3">
-        <label for="">Apellido</label>
-      </div>
-      <div class="col-md-9">
-        {{userForm.last_name}}
-      </div>
-    </div>
-    <div class="row form-group form-group-sm">
-      <div class="col-md-3">
-        <label for="">Fecha nacimiento</label>
-      </div>
-      <div class="col-md-3">
-        {{profileForm.dia_nac}}
-      </div>
-      <div class="col-md-3">
-        {{profileForm.mes_nac}}
-      </div>
-      <div class="col-md-3">
-        {{profileForm.anio_nac}}
-      </div>
-    </div>
-    <div class="row form-group form-group-sm">
-      <div class="col-md-3">
-        <label for="">Grupo Sanguineo</label>
-      </div>
-      <div class="col-md-9">
-        {{profileForm.tipo_sangre}}
-      </div>
-    </div>
-    <div class="row form-group form-group-sm">
-      <div class="col-md-12">
-        <label for="">Otros datos Medicos de Interes</label>
-      </div>
-    </div>
-    <div class="row form-group form-group-sm">
-      <div class="col-md-12">
-        {{profileForm.datos_medicos_interes}}
+    <div class="col-md-6">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="">
+          {% if not profile.avatar %}
+            <img src="{% static 'img/empty-profile-picture.png' %}" alt=""  class="profile-picture" width="144px"/>
+          {% else %}
+            <img src="/media/{{profile.avatar}}" alt="" class='profile-picture'/>
+          {% endif %}
+          <div class="boton-agregar-imagen">
+            <label class="">
+              Cambiar Imagen {{profileForm.avatar}}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    {{profileForm.avatar}}
-    <label class="btn btn-default btn-file">
-    Browse <input type="file" style="display: none;">
-</label>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" name="button" class="btn btn-primary btn-block"> Guardar Perfil </button>
+    </div>
   </div>
-</div>
-
+</form>
 {% endblock section %}

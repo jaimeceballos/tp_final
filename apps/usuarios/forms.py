@@ -38,6 +38,7 @@ class RegistroForm(forms.Form):
 class UserForm(forms.ModelForm):
 	first_name 		= forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'Nombre','required':'required','class':'form-control'})))
 	last_name		= forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'Apellido','required':'required','class':'form-control'})))
+	email 			= forms.EmailField(widget=forms.TextInput(attrs=dict({'required':'required','class':'form-control'})))
 	class Meta:
 		model = User
 		exclude = ['last_login','is_superuser','is_staff','is_active','date_joined','groups','user_permissions','password','username',]
@@ -52,7 +53,7 @@ class ProfileForm(forms.ModelForm):
 	avatar 					= forms.ImageField()
 	tipo_sangre 			= forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'Grupo y factor','class':'form-control'})),required=False)
 	datos_medicos_interes	= forms.CharField(widget=forms.Textarea(attrs=dict({'placeholder':'Describa si tiene alergias, si posee alguna enfermedad cronica que tenga algun tratamiento especial indicado.','class':'form-control'})),required=False)
-	avatar 					= forms.ImageField(widget=forms.ClearableFileInput(attrs=dict({'class':'btn btn-xs btn-primary'})))
+	avatar 					= forms.ImageField(widget=forms.FileInput())
 
 	class Meta:
 		model = UserProfile

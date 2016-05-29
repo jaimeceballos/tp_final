@@ -37,7 +37,6 @@ if (navigator.geolocation) {
             $(this).attr("selected","selected");
         });
         $("#id_localidad option").each(function(){
-          alert('ingreso');
           if ($(this).text().toUpperCase() == $('#ciudad').val().toUpperCase() )
             $(this).attr("selected","selected");
             $('#id_localidad').removeAttr("disabled");

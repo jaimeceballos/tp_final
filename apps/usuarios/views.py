@@ -90,7 +90,6 @@ def logout(request):
 def editar_perfil(request):
 	usuario = request.user
 	profile = usuario.profile
-	print profile.avatar
 	userForm = UserForm(instance=usuario)
 	profileForm = ProfileForm(instance=profile)
 	values = {
@@ -109,8 +108,17 @@ def editar_perfil(request):
 			profile.dia_nac = profileForm.data['dia_nac']
 			profile.mes_nac = profileForm.data['mes_nac']
 			profile.anio_nac = profileForm.data['anio_nac']
-			profile.avatar = request.FILES['avatar']
+			try:
+				profile.avatar = request.FILES['avatar']
+			except Exception as e:
+				profile.avatar = profile.avatar
 
+			profile.tipo_sangre = profileForm.data['tipo_sangre']
+			profile.datos_medicos_interes = profileForm.data['datos_medicos_interes']
 			usuario.save()
 			profile.save()
+			usuario = request.user
+			profile = usuario.profile
+			userForm = UserForm(instance=usuario)
+			profileForm = ProfileForm(instance=profile)
 	return render_to_response('usuarios/profile_edit.html',values,context_instance=RequestContext(request))

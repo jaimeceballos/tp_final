@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import signals
 from datetime import datetime,date
+import os
 
+def get_image_path(instance, filename):
+    return os.path.join('apps','usuarios',str(instance.user.id),'avatar',filename)
 
 class ContactoEmergenciaPersona(models.Model):
 	nombre = models.CharField(max_length=50)
@@ -20,7 +23,7 @@ class UserProfile(models.Model):
 	anio_nac = models.IntegerField(null=True)
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField(default=datetime.today())
-	avatar 	= models.ImageField(upload_to='apps/usuarios/avatar/',null=True,blank=True)
+	avatar 	= models.ImageField(upload_to=get_image_path,null=True,blank=True)
 	tipo_sangre = models.CharField(max_length=10, null = True, blank = True)
 	datos_medicos_interes = models.TextField(max_length=100, null = True, blank = True)
 	contactos_emergencia = models.ManyToManyField(ContactoEmergenciaPersona)

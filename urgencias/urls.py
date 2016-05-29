@@ -18,9 +18,11 @@ from django.contrib import admin
 from apps.usuarios import urls as usuarios
 from apps.core import urls as core
 from apps.public.views import home
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     url(r'^usuarios/',include(usuarios)),
     url(r'^core/',include(core)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',home,name='home'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
