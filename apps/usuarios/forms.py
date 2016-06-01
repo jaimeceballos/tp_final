@@ -64,7 +64,7 @@ class ContactoEmergenciaPersonaForm(forms.ModelForm):
 	nombre 				= forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'Nombre de la persona','required':'required','class':'form-control'})))
 	telefono_area       = forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'(0280)','required':'required','class':'form-control'})))
 	telefono_numero     = forms.CharField(widget=forms.TextInput(attrs=dict({'placeholder':'ej:154123456','required':'required','class':'form-control'})))
-	mail               	= forms.CharField(required=False,widget=forms.EmailInput(attrs=dict({'placeholder':'Ingrese la direccion de correo electronico','class':'form-control'})))
+	correo_electronico	= forms.CharField(required=False,widget=forms.EmailInput(attrs=dict({'placeholder':'Ingrese la direccion de correo electronico','class':'form-control'})))
 
 
 

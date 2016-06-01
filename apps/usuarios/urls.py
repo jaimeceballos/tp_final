@@ -15,4 +15,5 @@ urlpatterns = [
    url(r'^password-change/$',auth_views.password_change,{'template_name': 'password-change.html','post_change_redirect':'login'}),
    url(r'^editar_perfil/$',editar_perfil,name='editar_perfil'),
    url(r'^admin/', include(admin.site.urls)),
+   url(r'^cargar_contacto/$', cargar_contacto, name = 'cargar_contacto'),
 ]

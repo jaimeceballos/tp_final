@@ -10,8 +10,10 @@ from django.db import transaction,IntegrityError
 import time
 from datetime import timedelta,date
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='login')
 def contacto_emergencia(request):
     form = ContactoEmergenciaForm()
     contacto = ContactoEmergencia()
@@ -22,6 +24,7 @@ def contacto_emergencia(request):
 
     return render_to_response('core/test.html',values,context_instance=RequestContext(request))
 
+@login_required(login_url='login')
 def save_contacto(request):
     form            = ContactoEmergenciaForm()
     contacto        = ContactoEmergencia()
@@ -60,6 +63,7 @@ def save_contacto(request):
                     values['msg']       = 'El contacto que intenta cargar ya existe.'
     return render_to_response('core/test.html',values,context_instance=RequestContext(request))
 
+@login_required(login_url='login')
 def obtener_ciudades(request,provincia):
     data        = request.POST
     ciudades    = Localidad.objects.filter(provincia = provincia)

@@ -92,15 +92,18 @@ def editar_perfil(request):
 	profile = usuario.profile
 	userForm = UserForm(instance=usuario)
 	profileForm = ProfileForm(instance=profile)
+	personaContactoForm = ContactoEmergenciaPersonaForm()
 	values = {
 		'userForm' : userForm,
 		'profileForm' :profileForm,
 		'usuario' : usuario,
 		'profile' : profile,
+		'personaContactoForm':personaContactoForm,
  	}
 	if request.method == 'POST':
 		userForm = UserForm(request.POST)
 		profileForm = ProfileForm(request.POST, request.FILES)
+		print userForm.is_valid() or profileForm.is_valid()
 		if userForm.is_valid() or profileForm.is_valid():
 			usuario.first_name = userForm.data['first_name']
 			usuario.last_name = userForm.data['last_name']
@@ -121,4 +124,19 @@ def editar_perfil(request):
 			profile = usuario.profile
 			userForm = UserForm(instance=usuario)
 			profileForm = ProfileForm(instance=profile)
+	values['contactosPersona'] = profile.contactos_emergencia.all().count()
 	return render_to_response('usuarios/profile_edit.html',values,context_instance=RequestContext(request))
+
+def cargar_contacto(request):
+	if request.method == 'POST':
+		profile = request.user.profile
+		form = ContactoEmergenciaPersonaForm(request.POST)
+		if form.is_valid():
+			contacto = ContactoEmergenciaPersona()
+			contacto.nombre = form.cleaned_data['nombre']
+			contacto.telefono_area = form.cleaned_data['telefono_area']
+			contacto.telefono_numero = form.cleaned_data['telefono_numero']
+			contacto.correo_electronico = form.cleaned_data['correo_electronico']
+			contacto.save()
+			profile.contactos_emergencia.add(contacto)
+	return HttpResponseRedirect(reverse('editar_perfil'))

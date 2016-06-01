@@ -11,7 +11,7 @@
 
 {% endblock titulo %}
 {% block section %}
-<form action="{% url 'editar_perfil' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+<form action="{% url 'editar_perfil' %}" method="post" runat="server" enctype="multipart/form-data">{% csrf_token %}
   <div class="row">
     <div class="col-md-6">
       <div class="row form-group form-group-sm">
@@ -72,20 +72,58 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="">
-          {% if not profile.avatar %}
-            <img src="{% static 'img/empty-profile-picture.png' %}" alt=""  class="profile-picture" width="144px"/>
-          {% else %}
-            <img src="/media/{{profile.avatar}}" alt="" class='profile-picture'/>
-          {% endif %}
-          <div class="boton-agregar-imagen">
-            <label class="">
-              Cambiar Imagen {{profileForm.avatar}}
-            </label>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="">
+            {% if not profile.avatar %}
+              <img src="{% static 'img/empty-profile-picture.png' %}" alt="" id='profileImg' class="profile-picture" width="144px" height="144px"/>
+            {% else %}
+              <img src="/media/{{profile.avatar}}" alt="" class='profile-picture' id='profileImg' width="144px" height="144px"/>
+            {% endif %}
+            <div class="boton-agregar-imagen">
+              <label class="">
+                Cambiar Imagen {{profileForm.avatar}}
+              </label>
+            </div>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-info" role="alert">
+            <h3>Contanos un poquito m&aacute;s.</h3>
+            <p>
+              Contanos a qui&eacute;n llamarias, o enviar&iacute;as un mensaje de texto en caso de una emergencia. Esto puede ayudarnos a que obtengas ayuda de manera r&aacute;pida.
+              <br>Haciendo click en el bot&oacute;n de abajo vas a poder ingresar 3 (tres) numeros telefonicos de tu confianza a quienes seran enviados datos en caso de encontrarte en una situacion de emergencia.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#cargar-numero" {% if contactosPersona == 3 %} disabled="disabled" {% endif %}>
+              <i class="glyphicon glyphicon-phone"></i>
+              Cargar N&uacute;mero Asociado
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ver-numeros" {% if contactosPersona < 1 %} disabled="disabled" {% endif %}>
+              <i class="glyphicon glyphicon-eye-open"></i>
+              Ver N&uacute;meros Asociados
+            </button>
+        </div>
+      </div>
+      {% if contactosPersona == 3%}
+      <div class="row">
+        <div class="col-md-5">
+          <div class="alert alert-danger" role alert>
+            <p>
+              Ya tenes tres contactos cargados, si queres podes modificar uno de los existentes o borrar uno y cargar uno nuevo.
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
   <div class="row">
@@ -94,4 +132,121 @@
     </div>
   </div>
 </form>
+<div class="modal fade" id="cargar-numero" tabindex="-1" role="dialog" aria-labelledby="cargar-numero-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form class="" action="{% url 'cargar_contacto'%}" method="post">{% csrf_token %}
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="cargar-numero-label"> <i class="glyphicon glyphicon-phone"></i> Cargar N&uacute;mero Asociado <small>Este n&uacute;mero ser&aacute; utilizado en caso de emergencia.</small> </h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row form-group form-group-sm">
+                    <div class="col-md-3">
+                      <label for="">Nombre</label>
+                    </div>
+                    <div class="col-md-9">
+                      {{personaContactoForm.nombre}}
+                      <!--input type="text" id="id_nombre"  class="form-control" required placeholder="Ingrese el nombre de la persona" value=""-->
+                    </div>
+                  </div>
+                  <div class="row form-group form-group-sm">
+                    <div class="col-md-3">
+                      <label for="">Tel&eacute;fono</label>
+                    </div>
+                    <div class="col-md-3">
+                        <!--input type="text" id="id_telefono_area" class="form-control" required placeholder="(0280)" value=""-->
+                        {{personaContactoForm.telefono_area}}
+                    </div>
+                    <div class="col-md-1">
+                        <label for="">-</label>
+                    </div>
+                    <div class="col-md-5">
+                        <!--input type="text" id="id_telefono_numero" class="form-control" required placeholder="154123456" value=""-->
+                        {{personaContactoForm.telefono_numero}}
+                    </div>
+                  </div>
+                  <div class="row form-group form-group-sm">
+                    <div class="col-md-3">
+                      <label for="">Correo Electr&oacute;nico</label>
+                    </div>
+                    <div class="col-md-9">
+                      <!--input type="email" id="id_mail" class="form-control" value=""-->
+                      {{personaContactoForm.correo_electronico}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary"> Guardar </button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ver-numeros" tabindex="-1" role="dialog" aria-labelledby="ver-numeros-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="ver-numeros-label"> <i class="glyphicon glyphicon-eye-open"></i> Ver N&uacute;meros Asociados <small>Estos son los n&uacute;meros que se utlizaran en caso de emergencia.</small> </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th>
+                          Nombre
+                        </th>
+                        <th>
+                          Tel&eacute;fono
+                        </th>
+                        <th>
+                          Correo Electr&oacute;nico
+                        </th>
+                        <th>
+
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for contacto in profile.contactos_emergencia.all %}
+                        <tr>
+                          <td>
+                            {{ contacto.nombre }}
+                          </td>
+                          <td>
+                            {{ contacto.telefono_area }} - {{ contacto.telefono_numero }}
+                          </td>
+                          <td>
+                            {{ contacto.correo_electronico }}
+                          </td>
+                          <td>
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            <i class="glyphicon glyphicon-trash"></i>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+    </div>
+</div>
 {% endblock section %}
