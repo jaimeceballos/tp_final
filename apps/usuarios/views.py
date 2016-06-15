@@ -27,6 +27,12 @@ def registro(request):
 		form = RegistroForm(request.POST)
 		if form.is_valid():
 			user = User()
+			try:
+				if request.session.get('contributor',True):
+					user.is_staff  = True
+					password = form.cleaned_data['password']
+			except:
+				user.is_staff = False
 			user.username = form.cleaned_data['email']
 			user.first_name = form.cleaned_data['nombre']
 			user.last_name = form.cleaned_data['apellido']
@@ -46,7 +52,10 @@ def registro(request):
 			profile.save()
 			subject, from_email, to = 'Confirmacion de cuenta','jaimeceballos82@gmail.com',user.username
 			text_content = 'Hola %s: ' % user.first_name
-			html_content = '<strong>Hola %s:</strong><br>Recibiste este e-mail porque recientemente te has registrado en nuestro sitio.<br> Hace click en el siguiente link para confirmar tu registro <br> <a href="http://127.0.0.1:8000/usuarios/confirmar/%s/" target="_blank">http://127.0.0.1:8000/usuarios/confirmar/%s/</a> <br> Record&aacute; que este link es valido solo por 48 horas. <br>Si no realizaste ninguna solicitud de registro, te pedimos disculpas y desestima el presente correo.<br> Muchas gracias.' % (user.first_name,activation_key,activation_key)
+			if user.is_staff:
+				html_content = '<strong>Hola %s:</strong><br>Recibiste este e-mail porque recientemente has sido dado de alta como colaborador en nuestro sitio.<br> Tu usuario es: %s y tu contrase&ntilde;a: %s <br>Hace click en el siguiente link para confirmar tu registro <br> <a href="http://127.0.0.1:8000/usuarios/confirmar/%s/" target="_blank">http://127.0.0.1:8000/usuarios/confirmar/%s/</a> <br> Record&aacute; que este link es valido solo por 48 horas. <br> Muchas gracias.' % (user.first_name,user.username,password,activation_key,activation_key)
+			else:
+				html_content = '<strong>Hola %s:</strong><br>Recibiste este e-mail porque recientemente te has registrado en nuestro sitio.<br> Hace click en el siguiente link para confirmar tu registro <br> <a href="http://127.0.0.1:8000/usuarios/confirmar/%s/" target="_blank">http://127.0.0.1:8000/usuarios/confirmar/%s/</a> <br> Record&aacute; que este link es valido solo por 48 horas. <br>Si no realizaste ninguna solicitud de registro, te pedimos disculpas y desestima el presente correo.<br> Muchas gracias.' % (user.first_name,activation_key,activation_key)
 			msg = EmailMultiAlternatives(subject,text_content,from_email,[to])
 			msg.attach_alternative(html_content,"text/html")
 			msg.send()
@@ -140,3 +149,8 @@ def cargar_contacto(request):
 			contacto.save()
 			profile.contactos_emergencia.add(contacto)
 	return HttpResponseRedirect(reverse('editar_perfil'))
+
+def cargar_colaborador(request):
+	registro = RegistroForm()
+	request.session['contributor'] = True
+	return render_to_response('usuarios/contributor.html',{'form':registro},context_instance=RequestContext(request))

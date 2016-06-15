@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+      {% block head %}
+      {% endblock head %}
       <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
       <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
       <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
@@ -114,7 +115,7 @@
 						  <a href="{% url 'login' %}" class=""> <i class="glyphicon glyphicon-log-in"></i> Ingresar </a>
 						</li>
             {% else %}
-              {% if user.is_superuser and user.is_staff %}
+              {% if user.is_superuser or user.is_staff %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Administrar Contactos <strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
@@ -122,7 +123,14 @@
                     <a href="{% url 'contacto' %}"> <i class="glyphicon glyphicon-plus"></i> Nuevo Contacto  </a>
                     <a href="#"> <i class="glyphicon glyphicon-edit"></i> Editar Contacto </a>
                     <a href="#"> <i class="glyphicon glyphicon-trash"></i> Dar de baja Contacto </a>
+                    <a href="#"> <i class="glyphicon glyphicon-trash"></i> Dar de baja Contacto </a>
                   </li>
+                  {% if user.is_superuser %}
+                    <li class="divider"></li>
+                    <li>
+                      <a href="{% url 'add_contributor' %}"> <i class="glyphicon glyphicon-user"></i> Dar de alta Colaborador </a>
+                    </li>
+                  {% endif %}
                   </ul>
                 </li>
                 {% endif %}
