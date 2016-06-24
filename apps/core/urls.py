@@ -6,4 +6,6 @@ urlpatterns = [
    url(r'^contacto/$',contacto_emergencia,name='contacto'),
    url(r'^contacto_save/$',save_contacto,name='contacto_save'),
    url(r'^obtenerciudades/(?P<provincia>[0-9A-Za-z]+)/$', obtener_ciudades, name = 'obtener_ciudades'),
+   url(r'^ver_contactos/$',ver_contactos, name='ver_contactos'),
+   url(r'^obtenercontactos/(?P<provincia>[0-9A-Za-z]+)/(?P<localidad>[0-9A-Za-z]+)/$', obtener_contactos, name = 'obtener_contactos'),
 ]

@@ -8,7 +8,9 @@
   	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
       <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
-    <script src="{% static 'js/maps.js' %}"></script>
+    {% block map-script %}
+      <script src="{% static 'js/maps.js' %}"></script>
+    {% endblock map-script %}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/map.css' %}" rel="stylesheet">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -28,7 +30,9 @@
 
 
     </div>
-    <h1 id=encabezado>Nuevo Contacto de emergencia</h1>
+    {% block title %}
+      <h1 id=encabezado>Nuevo Contacto de emergencia</h1>
+    {% endblock title %}
     {% block formulario %}
       {% include 'core/nuevo_contacto.html'%}
     {% endblock formulario %}

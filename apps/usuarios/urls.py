@@ -16,5 +16,6 @@ urlpatterns = [
    url(r'^editar_perfil/$',editar_perfil,name='editar_perfil'),
    url(r'^admin/', include(admin.site.urls)),
    url(r'^cargar_contacto/$', cargar_contacto, name = 'cargar_contacto'),
-   url(r'^new_contributor/$',cargar_colaborador, name = 'add_contributor')
-]
+   url(r'^new_contributor/$',cargar_colaborador, name = 'add_contributor'),
+   url(r'^cambiar_password/$',cambiar_password, name = 'cambiar_password'),
+ ]

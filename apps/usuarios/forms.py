@@ -71,3 +71,24 @@ class ContactoEmergenciaPersonaForm(forms.ModelForm):
 	class Meta:
 		model = ContactoEmergenciaPersona
 		exclude = []
+
+class CambiarPasswordForm(forms.Form):
+	actual = forms.CharField(widget=forms.PasswordInput(attrs=dict({'placeholder':'Ingrese su Password actual','required':'required','class':'form-control'})))
+	nueva = forms.CharField(widget=forms.PasswordInput(attrs=dict({'placeholder':'Ingrese su nuevo Password','required':'required','class':'form-control'})))
+	repita = forms.CharField(widget=forms.PasswordInput(attrs=dict({'placeholder':'Repita su nuevo Password','required':'required','class':'form-control'})))
+
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop('request', None)
+		super(CambiarPasswordForm, self).__init__(*args, **kwargs)
+
+
+	def clean(self):
+		user = self.request.user
+		actual = self.cleaned_data["actual"]
+		nueva = self.cleaned_data["nueva"]
+		repita = self.cleaned_data["repita"]
+		if user.check_password(actual):
+			if nueva != repita:
+				raise forms.ValidationError('Las contraseñas ingresadas no coinciden.')
+		else:
+			raise forms.ValidationError('La contraseña ingresada no es correcta.')

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response,get_object_or_404
 from django.template import Context, Template, RequestContext
 from .models import *
@@ -60,7 +61,8 @@ def registro(request):
 			msg.attach_alternative(html_content,"text/html")
 			msg.send()
 			#send_mail(email_subject,email_body,'jaimeceballos82@gmail.com',[user.username],fail_silently=False)
-
+			if request.user.is_authenticated():
+				return HttpResponseRedirect(reverse('home'))
 			return render_to_response('registro_confirm.html',values,context_instance=RequestContext(request))
 
 
@@ -136,6 +138,7 @@ def editar_perfil(request):
 	values['contactosPersona'] = profile.contactos_emergencia.all().count()
 	return render_to_response('usuarios/profile_edit.html',values,context_instance=RequestContext(request))
 
+@login_required(login_url='login')
 def cargar_contacto(request):
 	if request.method == 'POST':
 		profile = request.user.profile
@@ -154,3 +157,23 @@ def cargar_colaborador(request):
 	registro = RegistroForm()
 	request.session['contributor'] = True
 	return render_to_response('usuarios/contributor.html',{'form':registro},context_instance=RequestContext(request))
+
+@login_required(login_url='login')
+def cambiar_password(request):
+	form = CambiarPasswordForm()
+	values = {
+		'form':form,
+	}
+	if request.method == 'POST':
+		form = CambiarPasswordForm(request.POST, request=request)
+		values['form'] = form
+		if form.is_valid():
+			password = form.cleaned_data["nueva"]
+			usuario = request.user
+			username = usuario.username
+			usuario.set_password(password)
+			usuario.save()
+			user = authenticate(username=username, password=password)
+			login(request, user)
+			values['message'] = 'Su contraseña ha sido cambiada con exito.'
+	return render_to_response('cambiar_password.html',values,context_instance=RequestContext(request))

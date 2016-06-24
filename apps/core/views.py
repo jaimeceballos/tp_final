@@ -65,7 +65,19 @@ def save_contacto(request):
 
 @login_required(login_url='login')
 def obtener_ciudades(request,provincia):
-    data        = request.POST
     ciudades    = Localidad.objects.filter(provincia = provincia)
     data        = serializers.serialize("json",ciudades)
     return HttpResponse(data, content_type = 'application/json')
+
+@login_required(login_url='login')
+def obtener_contactos(request,provincia,localidad):
+    provincia = Provincia.objects.get(provincia__icontains = provincia)
+    localidad = Localidad.objects.get(provincia = provincia.id, localidad__icontains = localidad)
+    contactos = ContactoEmergencia.objects.filter(provincia = provincia,localidad = localidad,is_valido=True)
+    data = serializers.serialize("json",contactos)
+    return HttpResponse(data,content_type='application/json')
+
+@login_required(login_url='login')
+def ver_contactos(request):
+
+    return render_to_response('core/ver_contactos.html',{},context_instance=RequestContext(request))

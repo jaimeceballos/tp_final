@@ -1,0 +1,11 @@
+{% extends 'core/test.html' %}
+{% load staticfiles %}
+{% block map-script %}
+  <script src="{% static 'js/ver-maps.js' %}"></script>
+{% endblock map-script %}
+{% block title %}
+  <h1 id=encabezado> <small><a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i></a></small> Ver Contactos cercanos </h1>
+{% endblock title %}
+{% block formulario %}
+
+{% endblock formulario %}
