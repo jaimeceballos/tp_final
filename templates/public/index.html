@@ -17,7 +17,7 @@
 </head>
 <body>
   <div class="content">
-    
+    <audio id="alerta" src="{% static 'notification/soft-bells.mp3' %}" preload="auto"></audio>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"  >
 				<div class="navbar-header">
 
@@ -43,12 +43,20 @@
                 <ul class="dropdown-menu">
                   <li>
                     <a href="{% url 'contacto' %}"> <i class="glyphicon glyphicon-plus"></i> Nuevo Contacto  </a>
-                    <a href="#"> <i class="glyphicon glyphicon-edit"></i> Editar Contacto </a>
+                    <a href="{% url 'editar_contacto' %}"> <i class="glyphicon glyphicon-edit"></i> Editar Contacto </a>
                     <a href="#"> <i class="glyphicon glyphicon-trash"></i> Dar de baja Contacto </a>
                   </li>
 
                   </ul>
                 </li>
+
+                <li style="display:none"> <a href="{% url 'sugeridos' %}"> Sugeridos <span class="badge" id="sugeridos"></span></a>
+                  <script type="text/javascript">
+                  verificarSugeridos();
+                  setInterval(function(){verificarSugeridos();},60*1000);
+                  </script> </li>
+
+
                 {% endif %}
                 {% if user.is_superuser %}
 
@@ -89,6 +97,9 @@
           {% endif %}
         {% endblock section %}
       </div>
+
+
+
     </section>
 
     <footer>

@@ -1,0 +1,103 @@
+{% extends 'core/test.html' %}
+{% load staticfiles %}
+{% block map-script %}
+  <script src="{% static 'js/compartir_map.js' %}"></script>
+{% endblock map-script %}
+
+{% block title %}
+  <h1 id=encabezado> <small><a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i></a></small> Compart&iacute; con el resto de los usuarios un contacto &uacute;til </h1>
+{% endblock title %}
+{% block formulario %}
+<form class="" action="{% url 'compartir_contacto' %}" id="compartir_contacto_form"  method="post">{% csrf_token %}
+  {{form.latitud}}
+  {{form.longitud}}
+    <div class="col-md-4 well" id=share-contact >
+      {% if msg %}
+        <div class="alert alert-success alert-dismissable">
+
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            ×
+          </button>
+          <h4>
+            <strong>{{msg}}</strong>
+          </h4>
+        </div>
+      {% endif %}
+      <div class="row form-group form-group-sm">
+          <div class="col-md-2">
+            <label for="">Provincia</label>
+          </div>
+          <div class="col-md-4">
+              {{form.provincia}}
+          </div>
+          <div class="col-md-2">
+            <label for="">Localidad</label>
+          </div>
+          <div class="col-md-4">
+              {{form.localidad}}
+          </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-2">
+          <label for="">Direccion</label>
+        </div>
+        <div class="col-md-4">
+          {{form.direccion}}
+        </div>
+        <div class="col-md-2">
+          {{form.numero}}
+        </div>
+        <div class="col-md-4">
+          {{form.interseccion}}
+        </div>
+      </div>
+      <div class="row form-group form-gruop-sm">
+        <div class="col-md-12">
+          <button type="button"id="buscar-direccion" class="btn btn-block btn-xs btn-success">Ubicar</button>
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-2">
+          <label for="">Tipo</label>
+        </div>
+        <div class="col-md-4">
+          {{form.tipo_contacto}}
+        </div>
+        <div class="col-md-2">
+          <label for="">Nombre</label>
+        </div>
+        <div class="col-md-4">
+          {{form.nombre}}
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-8">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></div>
+            {{form.telefono_area}}{{form.telefono_numero}}
+            <!--div class="input-group-addon"></div-->
+          </div>
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-6">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></div>
+            {{form.sitio_web}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></div>
+            {{form.mail}}
+          </div>
+        </div>
+      </div>
+      <div class="row form-group form-group-sm">
+        <div class="col-md-12">
+          <button type="submit" name="button" class="btn btn-primary btn-lg pull-right"> <i class="glyphicon glyphicon-share"></i> Compartir</button>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock formulario %}

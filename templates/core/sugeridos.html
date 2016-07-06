@@ -1,0 +1,82 @@
+{% extends 'public/index.html'%}
+{% load staticfiles %}
+{% block section %}
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"> Sugerencias</h3>
+        </div>
+        {% for sugerencia in sugeridos %}
+        <div class="panel-body">
+          <p id="sugerencia-{{sugerencia.id}}">
+            <b><i>{{sugerencia.sugiere.first_name}} sugiri&oacute;:</i></b> <i>{{sugerencia.nombre.lower|capfirst}}</i> en {{ sugerencia.localidad }} - {{ sugerencia.provincia }} <a href="javascript:mostrarDetalles({{sugerencia.id}});"> <i class="glyphicon glyphicon-eye-open"></i> Ver</a>
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title"> Detalle <label id='lblNombre'></label>  <img src="{% static 'img/ajax-loader.gif'%}" alt="" style="display:none" id="loader" /> </h3>
+        </div>
+        <div class="panel-body" id='detalles'>
+          {% block body %}
+          <div class=""  id='detalle-datos' style='display:block'>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="">Direcci&oacute;n</label>
+              </div>
+              <div class="col-md-4" id="lblDireccion">
+
+              </div>
+              <div class="col-md-2">
+                <label for="">Telefono</label>
+              </div>
+              <div class="col-md-4" id="lblTelefono">
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="">Sitio Web</label>
+              </div>
+              <div class="col-md-4" id="lblWeb">
+
+              </div>
+              <div class="col-md-2">
+                <label for="">Correo</label>
+              </div>
+              <div class="col-md-4" id="lblMail">
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" id='showMapa' style="height:300px">
+
+            </div>
+          </div>
+          <div class="row pull-right">
+            <div class="col-md-12 " id="botonsBox">
+
+            </div>
+          </div>
+          {% endblock body %}
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+{% endblock section %}

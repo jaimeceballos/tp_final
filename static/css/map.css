@@ -60,3 +60,9 @@ legend{
   color:#000;
   text-shadow: 2px 2px #A1C4FD;
 }
+
+#share-contact{
+  position: fixed;
+  top: 15%;
+  left: 5%;
+}

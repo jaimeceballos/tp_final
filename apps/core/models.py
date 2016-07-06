@@ -38,7 +38,7 @@ class ContactoEmergencia(models.Model):
     telefono_numero     = models.CharField(max_length=10,null=True,blank=True)
     sitio_web           = models.CharField(max_length=50,null=True,blank=True)
     mail                = models.EmailField(null=True,blank=True)
-
+    sugerido            = models.BooleanField(default=False)
+    sugiere             = models.ForeignKey(User,null=True)
     class Meta:
         db_table = 'ContactoEmergencia'
-        unique_together = ("nombre","localidad")

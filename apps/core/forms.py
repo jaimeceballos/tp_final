@@ -16,8 +16,8 @@ class ContactoEmergenciaForm(forms.ModelForm):
     direccion           = forms.CharField(required=True,widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level','placeholder':'Calle','required':'required'})))
     localidad           = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control','required':'required'})), queryset = Localidad.objects.all(),empty_label = 'Seleccione una ciudad')
     provincia           = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control','required':'required'})), queryset = Provincia.objects.all(), empty_label = 'Seleccione un provincia')
-    numero              = forms.CharField(widget = forms.TextInput(attrs = dict({'class':'form-control input-block-level','placeholder':'1234','required':'required'})),required=True)
-    interseccion        = forms.CharField(required=False,widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level','placeholder':'Calle'})))
+    numero              = forms.CharField(widget = forms.TextInput(attrs = dict({'class':'form-control input-block-level solo-numero','placeholder':'Numero','required':'required'})),required=True)
+    interseccion        = forms.CharField(required=False,widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level','placeholder':'Interseccion'})))
     latitud             = forms.CharField(widget=forms.HiddenInput())
     longitud            = forms.CharField(widget=forms.HiddenInput())
     is_directo          = forms.BooleanField(required=False)
@@ -28,4 +28,9 @@ class ContactoEmergenciaForm(forms.ModelForm):
 
     class Meta:
         model = ContactoEmergencia
-        exclude = ['is_valido',]
+        exclude = ['is_valido','sugerido','sugiere']
+
+class EditarContactoForm(forms.Form):
+    """docstring for EditarContactoForm"""
+    editar_provincia           = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control','required':'required'})), queryset = Provincia.objects.all(), empty_label = 'Seleccione un provincia')
+    editar_localidad           = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control','required':'required'})), queryset = Localidad.objects.all(),empty_label = 'Seleccione una ciudad')

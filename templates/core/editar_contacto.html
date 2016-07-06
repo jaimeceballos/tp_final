@@ -1,0 +1,57 @@
+{% extends 'public/index.html' %}
+{% block titulo %}
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="titulo-content"> Editar Contactos </h1>
+    <hr>
+  </div>
+
+</div>
+{% endblock titulo %}
+{% block section %}
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="col-md-12 alert alert-info" role='alert' style="display:none">
+        <p>
+          Con su selecci&oacute;n encontramos <span id="cantidad" class="badge"></span> resultados.
+        </p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-2">
+          <label for="">Provincia</label>
+      </div>
+      <div class="col-md-10">
+          {{form.editar_provincia}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label for="">Localidad</label>
+      </div>
+      <div class="col-md-10">
+        {{form.editar_localidad}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="" style="overflow:scroll; height:300px;margin-top:1%;" id="editar-results">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row well" id="formulario" >
+      
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock section %}

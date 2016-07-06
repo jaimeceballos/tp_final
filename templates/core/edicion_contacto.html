@@ -1,0 +1,94 @@
+<form class="" action="{% url 'editar' contacto.id %}" method="post" >{% csrf_token %}
+  {{form.latitud}} {{form.longitud}}
+  <div class="row">
+    <div class="col-md-2">
+      <label for="id_tipo_contacto">Tipo contacto:</label>
+    </div>
+    <div class="col-md-4">
+      {{form.tipo_contacto}}
+    </div>
+    <div class="col-md-2">
+        <label for="id_nombre">Nombre:</label>
+    </div>
+    <div class="col-md-4">
+      {{form.nombre}}
+    </div>
+  </div>
+  <div  class="row">
+    <div class="col-md-2">
+        <label for="id_direccion">Direccion:</label>
+    </div>
+    <div class="col-md-4">
+      {{form.direccion}}
+    </div>
+    <div class="col-md-2">
+      {{form.numero}}
+    </div>
+    <div class="col-md-4">
+      {{form.interseccion}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label for="id_provincia">Provincia:</label>
+    </div>
+    <div class="col-md-4">
+      {{form.provincia}}
+    </div>
+    <div class="col-md-2">
+      <label for="id_localidad">Localidad:</label>
+    </div>
+    <div class="col-md-4">
+      {{form.localidad}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <fieldset>
+        <legend>Detalles</legend>
+        <div class="row">
+          <div class="col-md-2">
+            <label for="">Telefono</label>
+          </div>
+          <div class="col-md-2">
+            {{form.telefono_area}}
+          </div>
+          <div class="col-md-4">
+            {{form.telefono_numero}}
+          </div>
+          <div class="col-md-4">
+            <label for=""> {{form.is_directo}} Directo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label for="">Sitio Web</label>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+              {{form.sitio_web}}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="">Mail</label>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+              {{form.mail}}
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" name="button" class="btn btn-success pull-right">Guardar</button>
+    </div>
+  </div>
+</form>
